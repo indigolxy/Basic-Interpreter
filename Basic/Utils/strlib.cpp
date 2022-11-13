@@ -45,7 +45,8 @@ std::string realToString(double d) {
 double stringToReal(std::string str) {
     std::istringstream stream(str);
     double value;
-    stream >> value >> std::ws;
+    stream >> value;
+    if (!stream.eof()) stream >> std::ws;
     if (stream.fail() || !stream.eof()) {
         error("stringToReal: Illegal floating-point format (" + str + ")");
     }
