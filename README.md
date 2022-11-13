@@ -11,6 +11,8 @@
 
 
 
+
+
 ##  1. 前言
 
 ​	BASIC 是一门解释性编程语言，本次大作业要求你用c++实现这个语言中的一些功能，来完成一个        	Minimal 版本的 BASIC 解释器。
@@ -23,7 +25,7 @@
 
 **关于评测：**
 
-​	我们进行基本的鲁棒性检测，但是不进行性能检测，你只需要通过下发的数据点即可。
+​	我们进行基本的**鲁棒性检测**和**内存泄漏检测**，但是不进行性能检测，你只需要通过下发的数据点即可。
 
 **注意：**
 
@@ -58,7 +60,7 @@
 ├── Basic-Demo-64bit
 ├── CMakeLists.txt
 ├── LICENSE
-├── Minimal BASIC Interpreter - 2022.pdf
+├── Minimal BASIC Interpreter - 2021.pdf
 ├── README.md
 ├── StanfordCPPLib
 ├── Test
@@ -174,7 +176,7 @@ g++ -o score score.cpp
 
 
 
-**对于指令的介绍和要求详见 `Minimal BASIC Interpreter - 2022.pdf`**
+**对于指令的介绍和要求详见 `Minimal BASIC Interpreter - 2021.pdf`**
 
 
 
@@ -205,7 +207,7 @@ e.g.
 
 
 
-- #### Parser 句法检查
+- #### Parser 语法检查
 
 **目的：**  检查获得的指令是否满足指令的格式要求。
 
