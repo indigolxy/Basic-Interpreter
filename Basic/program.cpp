@@ -20,9 +20,7 @@ Program::~Program() = default;
 
 void Program::clear() {
     // Replace this stub with your own code
-    line_getter.clear();
-    line_num_list.clear();
-    stmt_storage.clear();
+    //todo
 }
 
 void Program::addSourceLine(int lineNumber, const std::string &line) {
@@ -48,9 +46,8 @@ void Program::setParsedStatement(int lineNumber, Statement *stmt) {
 //void Program::removeSourceLine(int lineNumber) {
 
 Statement *Program::getParsedStatement(int lineNumber) {
-    if (line_num_list.find(lineNumber) != line_num_list.end()) {
-        return stmt_storage[lineNumber];
-    } else return nullptr;  // Replace this stub with your own code
+   // Replace this stub with your own code
+   //todo
 }
 
 int Program::getFirstLineNumber() {
