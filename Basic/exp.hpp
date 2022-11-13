@@ -9,7 +9,10 @@
 #ifndef _exp_h
 #define _exp_h
 
+#include <string>
+#include "Utils/error.hpp"
 #include "evalstate.hpp"
+#include "Utils/strlib.hpp"
 
 /*
  * Type: ExpressionType

@@ -7,12 +7,7 @@
  * BASIC statements.
  */
 
-#include <string>
-#include <sstream>
 #include "statement.hpp"
-#include"parser.hpp"
-#include "Utils/error.hpp"
-#include "Utils/strlib.h"
 
 
 /* Implementation of the Statement class */

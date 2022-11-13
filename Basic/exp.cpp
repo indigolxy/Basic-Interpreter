@@ -4,12 +4,8 @@
  * This file implements the Expression class and its subclasses.
  */
 
-#include <string>
-#include "Utils/error.hpp"
-#include "evalstate.hpp"
 #include "exp.hpp"
 
-#include "Utils/strlib.h"
 
 /*
  * Implementation notes: the Expression class

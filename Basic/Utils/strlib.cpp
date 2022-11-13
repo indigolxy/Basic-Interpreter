@@ -8,7 +8,7 @@
 #include <iomanip>
 #include <iostream>
 #include "error.hpp"
-#include "strlib.h"
+#include "strlib.hpp"
 
 /* Function prototypes */
 

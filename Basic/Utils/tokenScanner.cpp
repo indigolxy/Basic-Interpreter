@@ -7,7 +7,7 @@
 #include <cctype>
 #include "error.hpp"
 #include "tokenScanner.hpp"
-#include "strlib.h"
+#include "strlib.hpp"
 
 
 TokenScanner::TokenScanner() {

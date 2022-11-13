@@ -12,7 +12,7 @@
 #include "program.hpp"
 #include "Utils/error.hpp"
 #include "Utils/tokenScanner.hpp"
-#include "Utils/strlib.h"
+#include "Utils/strlib.hpp"
 
 
 /* Function prototypes */

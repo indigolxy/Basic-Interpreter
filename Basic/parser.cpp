@@ -4,15 +4,8 @@
  * Implements the parser.h interface.
  */
 
-#include <iostream>
-#include <string>
-
-#include "exp.hpp"
 #include "parser.hpp"
 
-#include "Utils/error.hpp"
-#include "Utils/strlib.h"
-#include "Utils/tokenScanner.hpp"
 
 
 /*

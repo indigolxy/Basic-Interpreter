@@ -8,9 +8,13 @@
 #define _parser_h
 
 #include <string>
+#include <iostream>
 #include "exp.hpp"
 
 #include "Utils/tokenScanner.hpp"
+#include "Utils/error.hpp"
+#include "Utils/strlib.hpp"
+
 
 /*
  * Function: parseExp

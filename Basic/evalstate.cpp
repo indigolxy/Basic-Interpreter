@@ -6,7 +6,7 @@
  * methods are simple enough that they need no individual documentation.
  */
 
-#include <string>
+
 #include "evalstate.hpp"
 
 
