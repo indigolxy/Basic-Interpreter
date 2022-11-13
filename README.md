@@ -58,7 +58,7 @@
 ├── Basic-Demo-64bit
 ├── CMakeLists.txt
 ├── LICENSE
-├── Minimal BASIC Interpreter - 2021.pdf
+├── Minimal BASIC Interpreter - 2022.pdf
 ├── README.md
 ├── StanfordCPPLib
 ├── Test
@@ -171,6 +171,10 @@ g++ -o score score.cpp
 ### 2.4 解释器实现步骤及待实现文件介绍
 
 注意：这是助教实现上的设计建议，你可以完全抛开现有框架自己实现，只需在 CR 时与助教说明即可。
+
+
+
+**对于指令的介绍和要求详见 `Minimal BASIC Interpreter - 2022.pdf`**
 
 
 
