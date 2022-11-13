@@ -164,10 +164,6 @@ g++ -o score score.cpp
 ./score -f
 ```
 
-**评测结果：**
-
-![](doc\judge_result.png)
-
 
 
 
