@@ -331,15 +331,15 @@ private:
     };
 
     std::string buffer;              /* The original argument string */
-    std::istream *isp;               /* The input stream for tokens  */
+    std::istream *isp = nullptr;     /* The input stream for tokens  */
     bool stringInputFlag;            /* Flag indicating string input */
     bool ignoreWhitespaceFlag;       /* Scanner ignores whitespace   */
     bool ignoreCommentsFlag;         /* Scanner ignores comments     */
     bool scanNumbersFlag;            /* Scanner parses numbers       */
     bool scanStringsFlag;            /* Scanner parses strings       */
     std::string wordChars;           /* Additional word characters   */
-    StringCell *savedTokens;         /* Stack of saved tokens        */
-    StringCell *operators;           /* List of multichar operators  */
+    StringCell *savedTokens = nullptr;         /* Stack of saved tokens        */
+    StringCell *operators = nullptr;           /* List of multichar operators  */
 
 /* Private method prototypes */
 

@@ -26,19 +26,24 @@ TokenScanner::TokenScanner(std::istream &infile) {
 }
 
 TokenScanner::~TokenScanner() {
-    if (stringInputFlag) delete isp;
+    delete isp;
+    delete savedTokens;
 }
 
 void TokenScanner::setInput(std::string str) {
     stringInputFlag = true;
     buffer = str;
+    if (isp != nullptr) delete isp;
     isp = new std::istringstream(buffer);
+    delete savedTokens;
     savedTokens = nullptr;
 }
 
 void TokenScanner::setInput(std::istream &infile) {
     stringInputFlag = false;
+    if (isp != nullptr)delete isp;
     isp = &infile;
+    delete savedTokens;
     savedTokens = nullptr;
 }
 
@@ -157,7 +162,7 @@ void TokenScanner::verifyToken(std::string expected) {
     std::string token = nextToken();
     if (token != expected) {
         std::string msg = "Found \"" + token + "\"" +
-                     " when expecting \"" + expected + "\"";
+                          " when expecting \"" + expected + "\"";
         error(msg);
     }
 };
