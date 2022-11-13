@@ -28,7 +28,8 @@ int stringToInteger(std::string str) {
 
     std::istringstream stream(str);
     int value;
-    stream >> value >> std::ws;
+    stream >> value;
+    if (!stream.eof()) stream >> std::ws;
     if (stream.fail() || !stream.eof()) {
         error("stringToInteger: Illegal integer format (" + str + ")");
     }
