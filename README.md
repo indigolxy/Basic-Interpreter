@@ -166,7 +166,7 @@ g++ -o score score.cpp
 
 **评测结果：**
 
-![](D:\Work\studying materials\资料\助教工作\basic doc\Basic-Interpreter-2022\doc\judge_result.png)
+![](doc\judge_result.png)
 
 
 
