@@ -1,6 +1,3 @@
-//
-// Created by 郭俊贤 on 2022/11/12.
-//
 #include <string>
 #include "error.hpp"
 

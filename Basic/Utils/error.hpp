@@ -1,7 +1,3 @@
-//
-// Created by 郭俊贤 on 2022/11/12.
-//
-
 #ifndef CODE_ERROR_HPP
 #define CODE_ERROR_HPP
 

@@ -163,10 +163,10 @@ g++ -o score score.cpp
 ```
 
 ```
-valgrind ./score -f
+./score -f
 ```
 
-
+即可进行本地测试（不包含memory check）
 
 
 
@@ -190,9 +190,9 @@ valgrind ./score -f
 
 
 
-- #### Lexer 词法检查
+- ####  指令合法性检查
 
-**目的：**  检查获得的切片是否满足类型要求。
+**目的：**  检查获得的切片是否满足类型要求以及切片的组合方式是否满足指令格式。
 
 **实现方法：** 学习使用 `tokenscanner` 来帮助你完成这一步。
 
@@ -204,23 +204,11 @@ e.g.
 111         --> a correct integer
 1a1         --> an incorrect integer
 ```
-
-
-
-- #### Parser 语法检查
-
-**目的：**  检查获得的指令是否满足指令的格式要求。
-
-**实现方法：** 借助词法检查，以及切片类型进行检查。
-
-**实现位置：** `Basic.cpp`
-
-e.g. 
-
 ```
 END         --> a correct END command
 END Hahaha  --> an incorrect END command
 ```
+
 
 
 
