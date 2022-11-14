@@ -163,7 +163,7 @@ g++ -o score score.cpp
 ```
 
 ```
-./score -f
+valgrind ./score -f
 ```
 
 
