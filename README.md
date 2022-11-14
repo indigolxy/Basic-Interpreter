@@ -1,6 +1,6 @@
 # Basic Interpreter - 2022 动手指南
 
-#### deadline: 第13周 周一 23：00
+#### deadline: 第13周 周三 23：00
 
 
 
