@@ -15,7 +15,7 @@
 
 ##  1. 前言
 
-​	BASIC 是一门解释性编程语言，本次大作业要求你用c++实现这个语言中的一些功能，来完成一个        	Minimal 版本的 BASIC 解释器。
+​	BASIC 是一门解释性编程语言，本次大作业要求你用 C++ 实现这个语言中的一些功能，来完成一个        	Minimal 版本的 BASIC 解释器。
 
 **该解释器应具有的功能有：**
 
@@ -148,15 +148,15 @@
 
 **评测要求：** 
 
-你的可执行文件路径与名字为`cmake-build-debug/code` ，也就是CLion默认的产生可执行文件的位置。
+你的可执行文件路径与名字为`cmake-build-debug/code` ，也就是 CLion 默认的产生可执行文件的位置。
 
-若路径有问题或你有独特的需求，你可以自行修改score.cpp中的路径或者测评代码来满足你的需求。
+若路径有问题或你有独特的需求，你可以自行修改 `score.cpp` 中的路径或者测评代码来满足你的需求。
 
 **评测脚本使用方法：**
 
 编译 `score.cpp`，然后运行编译产生的文件，即可。
 
-e.g 命令行中输入：
+e.g. 命令行中输入：
 
 ```
 g++ -o score score.cpp
@@ -166,7 +166,7 @@ g++ -o score score.cpp
 ./score -f
 ```
 
-即可进行本地测试（不包含memory check）
+即可进行本地测试（不包含 memory check）
 
 
 
@@ -234,19 +234,7 @@ END Hahaha  --> an incorrect END command
 
 ## 2.5 关于 OJ 评测
 
-本次大作业**使用github进行测评**。提交时，你的github仓库下需要有一个Basic文件夹，一个提供的StanfordCPPLib文件夹，与一个提供的CMakeLists.txt。
-
-在oj的提交栏提交你的github仓库的地址，如 `https://github.com/your_user_name/your_repo_name`
-
-如果**Compile Error**并且报错类似下面的样子，
-
-`Cloning into 'your_repo_name'... fatal: unable to access 'https://github.com/your_user_name/your_repo_name/': Failed to connect to github.com port 443: Connection timed out  `
-
-或
-
-`Cloning into 'your_repo_name'... fatal: unable to access 'https://github.com/your_user_name/your_repo_name/': GnuTLS recv error (-110): The TLS connection was non-properly terminated.  `
-
-可能是因为github访问速度较慢。你只需要将**提交的地址改为**`https://github.com.cnpmjs.org/your_user_name/your_repo_name`形式的地址就可以进行镜像加速从而解决这个问题了。
+本次大作业**使用 zip 文件进行oj测评**。
 
 测评文件内容默认是Test文件夹下提供的文件。这些文件和oj中测评的数据点是相同的。在这些测试点下，你的程序需要输出与标程相同的结果。
 
@@ -263,7 +251,7 @@ END Hahaha  --> an incorrect END command
 
 ## 2.7 关于答疑
 
-由于该作业本身实现难度较低，同时该作业的主要目的是 锻炼各位派生类的使用，文档的阅读能力同时让各位初步了解解释器的设计，所以答疑原则上以对于文档的理解为主，实现方面的细节（如派生类的用法，指针的用法等）请自己复习/学习。（当然如果实在debug搞不定助教们也会帮忙的~~）
+由于该作业本身实现难度较低，同时该作业的主要目的是 锻炼各位派生类的使用，文档的阅读能力同时让各位初步了解解释器的设计，所以答疑原则上以对于文档的理解为主，实现方面的细节（如派生类的用法，指针的用法等）请自己复习/学习。
 
 
 
