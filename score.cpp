@@ -101,6 +101,7 @@ int testTrace(const char *trace) {
     if (system((string() + "cat " + trace + " | timeout 1 " + standerBasic + " > test_ans 2> /dev/null").c_str()) != 0) return 1;
     if (system((string() + "cat " + trace + " | timeout 1 " + studentBasic + " > test_out 2> /dev/null").c_str()) != 0) return 2;
     if (system("diff test_ans test_out > /dev/null 2> /dev/null")) return 4;
+    if (system((string() + "cat " + trace + " | timeout 5 valgrind --error-exitcode=2 --leak-check=full " + studentBasic + " > /dev/null 2> /dev/null").c_str()) != 0) return 3;
     clearTempFiles();
     return 0;
 }
@@ -125,6 +126,7 @@ void runTest(const string currentTrace) {
                 cout << color("\x1b[0m") << endl;
                 if (error == 1) cout << color("\x1b[31m") << "Error occurred while running demo program" << color("\x1b[0m") << endl;
                 if (error == 2) cout << color("\x1b[31m") << "Error occurred while running your program" << color("\x1b[0m") << endl;
+                if (error == 3) cout << color("\x1b[31m") << "Memory leak" << color("\x1b[0m") << endl;
                 if (error == 4) {
                     cout << "Demo output: " << endl << color("\x1b[36m");
                     cout.flush();
