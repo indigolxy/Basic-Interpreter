@@ -56,7 +56,17 @@ void processLine(std::string line, Program &program, EvalState &state) {
     scanner.ignoreWhitespace();
     scanner.scanNumbers();
     scanner.setInput(line);
+    scanner.addOperator(">");
+    scanner.addOperator("<");
+    scanner.addOperator("=");
+    scanner.addOperator("-");
+    scanner.addOperator("+");
 
-    //todo
+    if (scanner.hasMoreTokens()) {
+      if (scanner.getTokenType(scanner.nextToken()) == NUMBER) {
+
+      }
+      else if ()
+    }
 }
 

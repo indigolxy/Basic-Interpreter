@@ -18,7 +18,7 @@
 #include <sstream>
 
 /*
- * Type: TokenType
+ * Type: TokenType 指令类型
  * ---------------
  * This enumerated type defines the values of the
  * <code>getTokenType</code> method.
