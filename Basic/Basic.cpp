@@ -77,15 +77,21 @@ void processLine(std::string line, Program &program, EvalState &state) {
             line = line.substr(0,line.length() - num.length() - 1);
             Statement *stmt = stringToStatement(line);
             program.setParsedStatement(line_num, stmt);
-            delete stmt;
+//            delete stmt;
         }
     }
 
     // an immediately executed BASIC program
     else {
         Statement *stmt = stringToStatement(line);
-        stmt->execute(state, program);
-        delete stmt;
+        try {
+            stmt->execute(state, program);
+            delete stmt;
+        }
+        catch(const ErrorException &x) {
+            delete stmt;
+            error(x.getMessage());
+        }
     }
 }
 
@@ -116,7 +122,6 @@ Statement *stringToStatement(std::string line) {
         else if (separator == "GOTO") stmt  = new Statement_GOTO(line);
         else if (separator == "IF") stmt  = new Statement_IF(line);
     }
-
 
     return stmt;
 }

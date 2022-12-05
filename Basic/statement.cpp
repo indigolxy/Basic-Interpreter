@@ -19,7 +19,10 @@ Statement::Statement() = default;
 Statement::~Statement() = default;
 
 void Statement_LET::execute(EvalState &state, Program &program) {
-    TokenScanner scanner(stmt);
+    TokenScanner scanner;
+    scanner.ignoreWhitespace();
+    scanner.scanNumbers();
+    scanner.setInput(stmt);
     Expression *compound = nullptr;
     try {
         compound = parseExp(scanner);
@@ -28,29 +31,77 @@ void Statement_LET::execute(EvalState &state, Program &program) {
     }
     catch (const ErrorException &x) {
         delete compound;
-        error("SYNTAX ERROR");
+        error(x.getMessage());
     }
 }
 
 void Statement_PRINT::execute(EvalState &state, Program &program) {
-    TokenScanner scanner(stmt);
-    Expression *printing = parseExp(scanner);
-    std::cout << printing->eval(state);
-    delete printing;
+    TokenScanner scanner;
+    scanner.ignoreWhitespace();
+    scanner.scanNumbers();
+    scanner.setInput(stmt);
+
+    Expression *printing = nullptr;
+    try {
+        printing = parseExp(scanner);
+        std::cout << printing->eval(state) << std::endl;
+        delete printing;
+    }
+    catch (const ErrorException &x) {
+        delete printing;
+        error(x.getMessage());
+    }
 }
 
 void Statement_INPUT::execute(EvalState &state, Program &program) {
-    TokenScanner scanner(stmt);
+    TokenScanner scanner;
+    scanner.ignoreWhitespace();
+    scanner.scanNumbers();
+    scanner.setInput(stmt);
     Expression *identifier = parseExp(scanner);
-    std::cout << "?" << std::endl;
-    Expression *value = parseExp(scanner);
-    state.setValue(identifier->toString(),value->eval(state));
+
+    while (true) {
+        std::cout << ' ' << "?" << ' ';
+        std::string input;
+        getline(std::cin, input);
+        bool isnegative = false;
+        if (input[0] == '-') {
+            input = input.substr(1);
+            isnegative = true;
+        }
+        scanner.ignoreWhitespace();
+//        scanner.scanNumbers();
+        scanner.setInput(input);
+        Expression *value = nullptr;
+        try {
+            value = parseExp(scanner);
+        }
+        catch (const ErrorException &x) {
+            delete value;
+            std::cout << "INVALID NUMBER" << std::endl;
+            continue;
+        }
+        if (value->getType() != CONSTANT) {
+            delete value;
+            std::cout << "INVALID NUMBER" << std::endl;
+            continue;
+        }
+        else {
+            state.setValue(identifier->toString(),(isnegative) ? (0 - value->eval(state)) : value->eval(state));
+            delete value;
+            break;
+        }
+    }
     delete identifier;
-    delete value;
 }
 
 void Statement_RUN::execute(EvalState &state, Program &program) {
-    program.run(state);
+    try {
+        program.run(state);
+    }
+    catch (const ErrorException &x) {
+        error(x.getMessage());
+    }
 }
 
 void Statement_LIST::execute(EvalState &state, Program &program) {
@@ -71,29 +122,35 @@ void Statement_HELP::execute(EvalState &state, Program &program) {
 }
 
 void Statement_GOTO::execute(EvalState &state, Program &program) {
-    TokenScanner scanner(stmt);
+    TokenScanner scanner;
+    scanner.ignoreWhitespace();
+    scanner.scanNumbers();
+    scanner.setInput(stmt);
     Expression *line_num = parseExp(scanner);
-    program.currentline = line_num->eval(state) - 1;
+    program.currentline = line_num->eval(state);
     delete line_num;
 }
 
 void Statement_IF::execute(EvalState &state, Program &program) {
-    TokenScanner scanner(stmt);
-    Expression *lhs = parseExp(scanner);
+    TokenScanner scanner;
+    scanner.ignoreWhitespace();
+    scanner.scanNumbers();
+    scanner.setInput(stmt);
+    Expression *lhs = readE(scanner,1);
     std::string op = scanner.nextToken();
-    Expression *rhs = parseExp(scanner);
+    Expression *rhs = readE(scanner,1);
     std::string then = scanner.nextToken();
     if (then != "THEN") error("SYNTAX ERROR");
     Expression *line_num = parseExp(scanner);
 
     if (op == "=") {
-        if (lhs->eval(state) == rhs->eval(state)) program.currentline = line_num->eval(state) - 1;
+        if (lhs->eval(state) == rhs->eval(state)) program.currentline = line_num->eval(state);
     }
     else if (op == ">") {
-        if (lhs->eval(state) > rhs->eval(state)) program.currentline = line_num->eval(state) - 1;
+        if (lhs->eval(state) > rhs->eval(state)) program.currentline = line_num->eval(state);
     }
     else if (op == "<") {
-        if (lhs->eval(state) < rhs->eval(state)) program.currentline = line_num->eval(state) - 1;
+        if (lhs->eval(state) < rhs->eval(state)) program.currentline = line_num->eval(state);
     }
 
     delete lhs;

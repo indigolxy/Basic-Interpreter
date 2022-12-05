@@ -14,16 +14,25 @@
 
 Program::Program() : currentline(0) {}
 
-Program::~Program() = default;
+Program::~Program() {
+    for (int iter : program_set) {
+        delete program_map[iter];
+    }
+}
 
 void Program::clear() {
+    for (int iter : program_set) {
+        delete program_map[iter];
+    }
     program_map.clear();
     program_set.clear();
+    sourceline_map.clear();
     currentline = 0;
 }
 
 void Program::setParsedStatement(int lineNumber, Statement *stmt) {
-    program_set.insert(lineNumber);
+    if (program_set.count(lineNumber) == 0) program_set.insert(lineNumber);
+    else delete program_map[lineNumber];
     program_map[lineNumber] = stmt;
 }
 
@@ -38,15 +47,23 @@ int Program::getFirstLineNumber() {
 }
 
 int Program::getNextLineNumber(int lineNumber) {
-    return *(program_set.upper_bound(lineNumber));
+    auto iter = program_set.upper_bound(lineNumber);
+    if (iter != program_set.end()) return *(program_set.upper_bound(lineNumber));
+    else return -1;
 }
 
 void Program::run(EvalState &State) {
     currentline = getFirstLineNumber();
     while (true) {
+        int preline = currentline;
         program_map[currentline]->execute(State,*this);
-        if (currentline == -1) break;
-        currentline = getNextLineNumber(currentline);
+        if (currentline == -1) break; // END
+        else if (currentline != preline) { // goto or if-then
+            if (program_set.find(currentline) != program_set.end()) continue;
+            else error("LINE NUMBER ERROR");
+        }
+        else currentline = getNextLineNumber(currentline);
+        if (currentline == -1) break; // last line
     }
 }
 
