@@ -56,6 +56,6 @@ Expression *readT(TokenScanner &scanner);
  * is not an operator, precedence returns 0.
  */
 
-int precedence(std::string token);
+int precedence(std::string token); // 优先级
 
 #endif

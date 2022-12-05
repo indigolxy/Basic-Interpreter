@@ -19,3 +19,5 @@ add_executable(draft draft.cpp Basic/Utils/tokenScanner.cpp Basic/Utils/tokenSca
         Basic/parser.cpp
         Basic/program.cpp
         Basic/statement.cpp)
+
+add_executable(score score.cpp)

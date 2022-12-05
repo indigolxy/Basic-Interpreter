@@ -12,53 +12,61 @@
 
 
 
-Program::Program() = default;
+Program::Program() : currentline(0) {}
 
 Program::~Program() = default;
 
 void Program::clear() {
-    // Replace this stub with your own code
-    //todo
-}
-
-void Program::addSourceLine(int lineNumber, const std::string &line) {
-    // Replace this stub with your own code
-    //todo
-}
-
-void Program::removeSourceLine(int lineNumber) {
-    // Replace this stub with your own code
-    //todo
-}
-
-std::string Program::getSourceLine(int lineNumber) {
-    // Replace this stub with your own code
-    //todo
+    program_map.clear();
+    program_set.clear();
+    currentline = 0;
 }
 
 void Program::setParsedStatement(int lineNumber, Statement *stmt) {
-    // Replace this stub with your own code
-    //todo
+    program_set.insert(lineNumber);
+    program_map[lineNumber] = stmt;
 }
 
-//void Program::removeSourceLine(int lineNumber) {
 
 Statement *Program::getParsedStatement(int lineNumber) {
-   // Replace this stub with your own code
-   //todo
+    return program_map[lineNumber];
 }
 
+
 int Program::getFirstLineNumber() {
-    // Replace this stub with your own code
-    //todo
+    return *(program_set.begin());
 }
 
 int Program::getNextLineNumber(int lineNumber) {
-    // Replace this stub with your own code
-    //todo
+    return *(program_set.upper_bound(lineNumber));
 }
 
-//more func to add
-//todo
+void Program::run(EvalState &State) {
+    currentline = getFirstLineNumber();
+    while (true) {
+        program_map[currentline]->execute(State,*this);
+        if (currentline == -1) break;
+        currentline = getNextLineNumber(currentline);
+    }
+}
 
+void Program::list() {
+    for (int iter : program_set) {
+        std::cout << sourceline_map[iter] << std::endl;
+    }
+}
 
+void Program::addSourceLine(int lineNumber, const std::string &line) {
+    sourceline_map[lineNumber] = line;
+}
+
+void Program::removeLine(int lineNumber) {
+    sourceline_map.erase(lineNumber);
+    delete program_map[lineNumber];
+    program_map.erase(lineNumber);
+    program_set.erase(lineNumber);
+}
+
+std::string Program::getSourceLine(int lineNumber) {
+    return sourceline_map[lineNumber];
+}

@@ -13,6 +13,7 @@
 #define _statement_h
 
 #include <string>
+#include <memory>
 #include <sstream>
 #include "evalstate.hpp"
 #include "exp.hpp"
@@ -35,7 +36,6 @@ class Program;
  */
 
 class Statement {
-
 public:
 
 /*
@@ -46,6 +46,7 @@ public:
  */
 
     Statement();
+    Statement(std::string str) : stmt(str) {}
 
 /*
  * Destructor: ~Statement
@@ -71,6 +72,8 @@ public:
 
     virtual void execute(EvalState &state, Program &program) = 0;
 
+protected:
+    std::string stmt;
 };
 
 
@@ -84,5 +87,79 @@ public:
  * an Expression object), the class implementation must also
  * specify its own destructor method to free that memory.
  */
+
+// let print input run list clear help quit goto if rem end
+
+class Statement_LET : public Statement {
+public:
+    Statement_LET(std::string str) : Statement(str) {}
+    virtual void execute(EvalState &state, Program &program) override;
+};
+
+class Statement_PRINT : public Statement {
+public:
+    Statement_PRINT(std::string str) : Statement(str) {}
+    virtual void execute(EvalState &state, Program &program) override;
+};
+
+class Statement_INPUT : public Statement {
+public:
+    Statement_INPUT(std::string str) : Statement(str) {}
+    virtual void execute(EvalState &state, Program &program) override;
+};
+
+class Statement_RUN : public Statement {
+public:
+    Statement_RUN() = default;
+    virtual void execute(EvalState &state, Program &program) override;
+};
+
+class Statement_LIST : public Statement {
+public:
+    Statement_LIST() = default;
+    virtual void execute(EvalState &state, Program &program) override;
+};
+
+class Statement_CLEAR : public Statement {
+public:
+    Statement_CLEAR() = default;
+    virtual void execute(EvalState &state, Program &program) override;
+};
+
+class Statement_QUIT : public Statement {
+public:
+    Statement_QUIT() = default;
+    virtual void execute(EvalState &state, Program &program) override;
+};
+
+class Statement_HELP : public Statement {
+public:
+    Statement_HELP() = default;
+    virtual void execute(EvalState &state, Program &program) override;
+};
+
+class Statement_GOTO : public Statement {
+public:
+    Statement_GOTO(std::string str) : Statement(str) {}
+    virtual void execute(EvalState &state, Program &program) override;
+};
+
+class Statement_IF : public Statement {
+public:
+    Statement_IF(std::string str) : Statement(str) {}
+    virtual void execute(EvalState &state, Program &program) override;
+};
+
+class Statement_REM : public Statement {
+public:
+    Statement_REM() = default;
+    virtual void execute(EvalState &state, Program &program) override;
+};
+
+class Statement_END : public Statement {
+public:
+    Statement_END() = default;
+    virtual void execute(EvalState &state, Program &program) override;
+};
 
 #endif

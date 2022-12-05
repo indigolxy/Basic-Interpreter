@@ -18,6 +18,7 @@
 /* Function prototypes */
 
 void processLine(std::string line, Program &program, EvalState &state);
+Statement *stringToStatement(std::string line);
 
 /* Main program */
 
@@ -56,17 +57,67 @@ void processLine(std::string line, Program &program, EvalState &state) {
     scanner.ignoreWhitespace();
     scanner.scanNumbers();
     scanner.setInput(line);
-    scanner.addOperator(">");
-    scanner.addOperator("<");
-    scanner.addOperator("=");
-    scanner.addOperator("-");
-    scanner.addOperator("+");
 
-    if (scanner.hasMoreTokens()) {
-      if (scanner.getTokenType(scanner.nextToken()) == NUMBER) {
+    // a BASIC program
+    if (line[0] >= '0' && line[0] <= '9') {
+        std::string num = scanner.nextToken();
+        int line_num = 0;
+        for (char i: num) {
+            line_num *= 10;
+            line_num += i - '0';
+        }
 
-      }
-      else if ()
+        if (!scanner.hasMoreTokens()) program.removeLine(line_num);
+        else {
+            program.addSourceLine(line_num, line);
+            // remove num from line
+            for (int i = 0; i < line.length() - num.length() - 1; ++i) {
+                line[i] = line[i + num.length() + 1];
+            }
+            line = line.substr(0,line.length() - num.length() - 1);
+            Statement *stmt = stringToStatement(line);
+            program.setParsedStatement(line_num, stmt);
+            delete stmt;
+        }
     }
+
+    // an immediately executed BASIC program
+    else {
+        Statement *stmt = stringToStatement(line);
+        stmt->execute(state, program);
+        delete stmt;
+    }
+}
+
+
+
+Statement *stringToStatement(std::string line) {
+    Statement *stmt;
+    TokenScanner scanner(line);
+    std::string separator = scanner.nextToken();
+
+    if (separator == "RUN") stmt = new Statement_RUN;
+    else if (separator == "LIST") stmt  = new Statement_LIST;
+    else if (separator == "CLEAR") stmt  = new Statement_CLEAR;
+    else if (separator == "QUIT") stmt  = new Statement_QUIT;
+    else if (separator == "HELP") stmt  = new Statement_HELP;
+    else if (separator == "REM") stmt  = new Statement_REM;
+    else if (separator == "END") stmt  = new Statement_END;
+    else {
+        // remove separator from line
+        for (int i = 0;i < line.length() - separator.length() - 1;++i) {
+            line[i] = line[i + separator.length() + 1];
+        }
+        line = line.substr(0,line.length() - separator.length() - 1);
+
+        if (separator == "LET") stmt = new Statement_LET (line);
+        else if (separator == "PRINT") stmt = new Statement_PRINT(line);
+        else if (separator == "INPUT") stmt = new Statement_INPUT(line);
+        else if (separator == "GOTO") stmt  = new Statement_GOTO(line);
+        else if (separator == "IF") stmt  = new Statement_IF(line);
+    }
+
+
+    return stmt;
 }
 

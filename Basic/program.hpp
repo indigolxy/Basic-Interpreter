@@ -13,7 +13,7 @@
 #include <set>
 #include <unordered_map>
 #include "statement.hpp"
-
+#include "evalstate.hpp"
 
 class Statement;
 
@@ -84,7 +84,7 @@ public:
  * performing any action.
  */
 
-    void removeSourceLine(int lineNumber);
+    void removeLine(int lineNumber);
 
 /*
  * Method: getSourceLine
@@ -140,13 +140,16 @@ public:
 
     int getNextLineNumber(int lineNumber);
 
-    //more func to add
-    //todo
+    void run(EvalState &State);
+
+    void list();
+
+    int currentline;
 
 private:
-
-    // Fill this in with whatever types and instance variables you need
-    //todo
+    std::unordered_map<int,Statement*> program_map;
+    std::unordered_map<int,std::string> sourceline_map;
+    std::set<int> program_set;
 };
 
 #endif

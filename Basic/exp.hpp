@@ -121,7 +121,7 @@ public:
  * to the given value.
  */
 
-    ConstantExp(int value);
+    explicit ConstantExp(int value);
 
 /*
  * Prototypes for the virtual methods
@@ -130,11 +130,11 @@ public:
  * base class and don't require additional documentation.
  */
 
-    virtual int eval(EvalState &state);
+    int eval(EvalState &state) override;
 
-    virtual std::string toString();
+    std::string toString() override;
 
-    virtual ExpressionType getType();
+    ExpressionType getType() override;
 
 /*
  * Method: getValue
@@ -147,9 +147,7 @@ public:
     int getValue();
 
 private:
-
     int value;
-
 };
 
 /*
@@ -170,7 +168,7 @@ public:
  * for the variable named by name.
  */
 
-    IdentifierExp(std::string name);
+    explicit IdentifierExp(std::string name);
 
 /*
  * Prototypes for the virtual methods
@@ -179,11 +177,11 @@ public:
  * base class and don't require additional documentation.
  */
 
-    virtual int eval(EvalState &state);
+    int eval(EvalState &state) override;
 
-    virtual std::string toString();
+    std::string toString() override;
 
-    virtual ExpressionType getType();
+    ExpressionType getType() override;
 
 /*
  * Method: getName
@@ -230,13 +228,13 @@ public:
  * base class and don't require additional documentation.
  */
 
-    virtual ~CompoundExp();
+    ~CompoundExp() override;
 
-    virtual int eval(EvalState &state);
+    int eval(EvalState &state) override;
 
-    virtual std::string toString();
+    std::string toString() override;
 
-    virtual ExpressionType getType();
+    ExpressionType getType() override;
 
 /*
  * Methods: getOp, getLHS, getRHS
